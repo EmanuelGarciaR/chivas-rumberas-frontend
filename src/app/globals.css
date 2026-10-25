@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colores base */
+  --color-amarillo: #f0cb41;
+  --color-rojo: #A83627;
+  --color-crema-claro: #f7f1e1;
+  --color-crema-calido: #f0dfc0;
+  --color-blanco: #ffffff;
+  --color-negro-profundo: #160c07;
+  --color-marron-oscuro: #24150e;
+  --color-negro: #000000;
+  --color-gris-oscuro: #333333;
+  --color-gris-medio: #4d4d4d;
+  --color-gris-claro: #a5a5a5;
+
+  /* Variables semánticas (Light Mode) */
+  --bg-primary: var(--color-crema-claro);
+  --bg-secondary: var(--color-crema-calido);
+  --bg-card: var(--color-blanco);
+  --bg-dark-panel: var(--color-negro-profundo);
+  --text-primary: var(--color-negro);
+  --text-secondary: var(--color-gris-medio);
+  --text-light: var(--color-blanco);
+  --text-accent: var(--color-rojo);
+  --border-color: var(--color-gris-claro);
+
+  /* Selección y Tipografía */
+  --color-selection: #f0cb41;
+  --font-primary: 'Space Grotesk', sans-serif;
+  --font-size-sm: 0.85rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.2rem;
+  --font-size-lg: 2rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+[data-theme='dark'] {
+  /* Variables Semánticas (Dark Mode) */
+  --bg-primary: var(--color-negro-profundo);
+  --bg-secondary: var(--color-marron-oscuro);
+  --bg-card: var(--color-marron-oscuro);
+  --bg-dark-panel: var(--color-negro);
+  --text-primary: var(--color-crema-claro);
+  --text-secondary: var(--color-gris-claro);
+  --text-light: var(--color-negro);
+  --text-accent: var(--color-amarillo);
+  --border-color: var(--text-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  /* ¡Importante! Siempre usa el prefijo --color- */
+  /* Esto genera: bg-amarillo, text-amarillo, border-amarillo... */
+  --color-amarillo: var(--color-amarillo);
+  --color-rojo: var(--color-rojo);
+  --color-blanco: var(--color-blanco);
+  --color-negro: var(--color-negro);
+  
+  /* Esto genera: bg-primary, bg-secondary, bg-card... */
+  --color-primary: var(--bg-primary);
+  --color-secondary: var(--bg-secondary);
+  --color-card: var(--bg-card);
+  
+  /* Esto genera: text-txt-primary, text-txt-secondary... */
+  --color-txt-primary: var(--text-primary);
+  --color-txt-secondary: var(--text-secondary);
+
+  /* Esto genera: border-borde */
+  --color-borde: var(--border-color);
+
+  /* Tipografías: genera font-primary */
+  --font-primary: var(--font-primary);
+
+  /* Tamaños: genera text-sm, text-md, etc. */
+  --text-sm: var(--font-size-sm);
+  --text-base: var(--font-size-base);
+  --text-md: var(--font-size-md);
+  --text-lg: var(--font-size-lg);
 }
 
+/* Estilos base del documento */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
+
+/* Selector universal corregido */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+html, body, p, h1, h2, h3, h4, h5, h6, span, a, li, button, label, input, textarea {
+    overflow-wrap: break-word;
+    word-break: normal;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+p, li, span, a {
+    text-wrap: pretty;
+}
+
+img, video, canvas, svg {
+    max-width: 100%;
+}
+
+::-moz-selection {
+    background-color: var(--color-selection); 
+    color: var(--color-negro);
+}
+
+::selection {
+    background-color: var(--color-selection); 
+    color: var(--color-negro);
 }
