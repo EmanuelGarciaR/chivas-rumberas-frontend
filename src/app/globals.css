@@ -28,6 +28,7 @@
   /* Selección y Tipografía */
   --color-selection: #f0cb41;
   --font-primary: 'Space Grotesk', sans-serif;
+  --font-secondary: 'Libre Baskerville', sans-serif;
   --font-size-sm: 0.85rem;
   --font-size-base: 1rem;
   --font-size-md: 1.2rem;
@@ -69,6 +70,7 @@
 
   /* Tipografías: genera font-primary */
   --font-primary: var(--font-primary);
+  --font-secondary: var(--font-secondary);
 
   /* Tamaños: genera text-sm, text-md, etc. */
   --text-sm: var(--font-size-sm);
@@ -86,14 +88,6 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden !important;
-}
-
-/* Selector universal corregido */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: inherit;
 }
 
 html, body, p, h1, h2, h3, h4, h5, h6, span, a, li, button, label, input, textarea {
