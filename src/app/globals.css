@@ -27,8 +27,8 @@
 
   /* Selección y Tipografía */
   --color-selection: #f0cb41;
-  --font-primary: 'Space Grotesk', sans-serif;
-  --font-secondary: 'Libre Baskerville', sans-serif;
+  --font-primary: var(--font-space-grotesk);
+  --font-secondary: var(--font-libre-baskerville);
   --font-size-sm: 0.85rem;
   --font-size-base: 1rem;
   --font-size-md: 1.2rem;
@@ -48,9 +48,7 @@
   --border-color: var(--text-primary);
 }
 
-@theme {
-  /* ¡Importante! Siempre usa el prefijo --color- */
-  /* Esto genera: bg-amarillo, text-amarillo, border-amarillo... */
+@theme inline {
   --color-amarillo: var(--color-amarillo);
   --color-rojo: var(--color-rojo);
   --color-blanco: var(--color-blanco);
@@ -68,9 +66,9 @@
   /* Esto genera: border-borde */
   --color-borde: var(--border-color);
 
-  /* Tipografías: genera font-primary */
-  --font-primary: var(--font-primary);
-  --font-secondary: var(--font-secondary);
+  /* Tipografías: genera font-primary y font-secondary */
+  --font-primary: var(--font-space-grotesk);
+  --font-secondary: var(--font-libre-baskerville);
 
   /* Tamaños: genera text-sm, text-md, etc. */
   --text-sm: var(--font-size-sm);

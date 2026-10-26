@@ -3,17 +3,16 @@ import { Space_Grotesk, Libre_Baskerville } from 'next/font/google'
 import './globals.css'
 import Navbar from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({ 
   subsets: ['latin'],
-  variable: '--font-primary',
+  variable: '--font-space-grotesk',
 })
 
 const libreBaskerville = Libre_Baskerville({ 
   weight: ['400', '700'],
   subsets: ['latin'],
-  variable: '--font-secondary',
+  variable: '--font-libre-baskerville',
 })
 
 export const metadata: Metadata = {
@@ -27,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es"
       className={`${spaceGrotesk.variable} ${libreBaskerville.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="flex min-h-full flex-col bg-zinc-50 font-sans text-zinc-900">
+      <body className="flex min-h-full flex-col bg-zinc-50 font-primary text-zinc-900">
         <Navbar />
         {children}
         <Footer />
