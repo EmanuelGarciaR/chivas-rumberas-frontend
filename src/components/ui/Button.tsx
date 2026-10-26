@@ -1,6 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger'
@@ -10,6 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant
   size?: Size
   isLoading?: boolean
+  href?: string
   children: ReactNode
 }
 
@@ -17,7 +19,7 @@ const VARIANT_CLASSES: Record<Variant, string> = {
   primary:
     'bg-amarillo text-negro hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-amarillo',
   secondary:
-    'bg-transparent text-txt-primary border border-borde hover:bg-secondary focus-visible:ring-borde',
+    'bg-transparent text-blanco border border-borde hover:bg-secondary focus-visible:ring-borde',
   ghost:
     'bg-transparent text-txt-primary hover:bg-secondary focus-visible:ring-borde',
   danger:
@@ -36,20 +38,31 @@ export function Button({
   isLoading = false,
   className,
   disabled,
+  href,
   children,
   ...props
 }: ButtonProps) {
+  const computedClassName = cn(
+    'inline-flex items-center justify-center gap-2 rounded-lg font-medium',
+    'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+    'disabled:pointer-events-none disabled:opacity-50',
+    VARIANT_CLASSES[variant],
+    SIZE_CLASSES[size],
+    className,
+  )
+
+  if (href) {
+    return (
+      <Link href={href} className={computedClassName}>
+        {children}
+      </Link>
+    )
+  }
+
   return (
     <button
       disabled={disabled || isLoading}
-      className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-lg font-medium',
-        'transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-        'disabled:pointer-events-none disabled:opacity-50',
-        VARIANT_CLASSES[variant],
-        SIZE_CLASSES[size],
-        className,
-      )}
+      className={computedClassName}
       {...props}
     >
       {isLoading ? (

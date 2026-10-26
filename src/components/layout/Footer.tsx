@@ -27,7 +27,7 @@ export function Footer() {
           <p>
             La noche paisa,
             <br />
-            <span className="font-primary text-[1.2em] text-amarillo">
+            <span className="font-secondary text-[1.2em] text-amarillo">
               sobre ruedas.
             </span>
           </p>
