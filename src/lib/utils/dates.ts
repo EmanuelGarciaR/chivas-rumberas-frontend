@@ -17,7 +17,8 @@ export function formatDate(iso: string): string {
 
 export function formatTime(hhmm: string): string {
   const [hours, minutes] = hhmm.split(':').map(Number)
-  const d = new Date()
+  // Use a fixed date so formatting does not read the current clock during prerendering.
+  const d = new Date(Date.UTC(1970, 0, 1, hours, minutes))
   d.setHours(hours, minutes, 0, 0)
   return TIME_FORMAT.format(d)
 }
