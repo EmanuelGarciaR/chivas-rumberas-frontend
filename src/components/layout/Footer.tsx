@@ -35,6 +35,7 @@ export function Footer() {
 
         <address className="flex flex-1 justify-center not-italic lg:justify-end">
           <a
+            target="_blank"
             href="https://wa.me/573124797221?text=Hola,%20quiero%20más%20información%20sobre%20las%20chivas"
             className="flex items-center gap-2.5 border-b border-[rgba(240,203,65,0.3)] pb-1.5 text-sm text-amarillo no-underline transition-[border-color,opacity] duration-300 hover:border-amarillo hover:opacity-80"
           >
