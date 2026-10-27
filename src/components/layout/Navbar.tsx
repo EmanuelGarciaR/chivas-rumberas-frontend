@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowUpRightIcon } from '@/components/icons'
 import { ThemeToggle } from './ThemeToggle'
+import { MobileMenu } from './MobileMenu'
 
 export default function NavBar() {
   return (
@@ -22,13 +23,7 @@ export default function NavBar() {
         </div>
 
         {/* Hamburger Mobile - Visible solo en pantallas pequeñas */}
-        <button 
-          className="mr-5 block text-2xl text-amarillo lg:hidden" 
-          aria-label="Abrir menú" 
-          aria-expanded="false"
-        >
-          <i className="fa-solid fa-bars"></i>
-        </button>
+        <MobileMenu />
 
         {/* Menu - Oculto en móvil por defecto, visible en pantallas grandes (lg) */}
         <div className="mr-5 hidden items-center justify-center lg:flex">
