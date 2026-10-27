@@ -37,8 +37,8 @@ export default async function HomePage() {
       <Chivas />
       <Steps />
       <Stats />
-      <Momentos />
       <BookingSection chivas={chivas} travels={travels} loadError={loadError} />
+      <Momentos />
     </>
   )
 }
