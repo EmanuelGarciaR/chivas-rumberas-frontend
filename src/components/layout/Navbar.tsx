@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { ArrowUpRightIcon, MoonIcon } from '@/components/icons'
-import { Button } from '../ui/Button'
+import { ArrowUpRightIcon } from '@/components/icons'
+import { ThemeToggle } from './ThemeToggle'
 
 export default function NavBar() {
   return (
@@ -65,7 +65,7 @@ export default function NavBar() {
 
             {/* Toggle Modo Oscuro */}
             <li className="cursor-pointer text-base font-medium text-amarillo">
-                <MoonIcon size={18}/>
+                <ThemeToggle />
             </li>
           </ul>
         </div>

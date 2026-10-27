@@ -4,10 +4,12 @@ import { ArrowUpRightIcon } from "@animateicons/react/lucide/arrow-up-right-icon
 import { ArrowDownIcon } from "@animateicons/react/lucide/arrow-down-icon"
 import { MenuIcon } from "@animateicons/react/lucide/menu-icon"
 import { MoonIcon } from "@animateicons/react/lucide/moon-icon"
+import { SunIcon } from "@animateicons/react/lucide/sun-icon"
 
 export {
   ArrowUpRightIcon,
   ArrowDownIcon,
   MenuIcon,
-  MoonIcon
+  MoonIcon,
+  SunIcon,
 }

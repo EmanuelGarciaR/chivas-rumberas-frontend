@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es"
       className={`${spaceGrotesk.variable} ${libreBaskerville.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="flex min-h-full flex-col bg-zinc-50 font-primary text-zinc-900">
+      <body className="flex min-h-full flex-col bg-primary font-primary text-txt-primary">
         <Navbar />
         {children}
         <Footer />
