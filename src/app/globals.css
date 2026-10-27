@@ -76,6 +76,26 @@
   --text-base: var(--font-size-base);
   --text-md: var(--font-size-md);
   --text-lg: var(--font-size-lg);
+  --animate-chivas-right: chivas-right 50s linear infinite;
+  --animate-chivas-left: chivas-left 50s linear infinite;
+}
+
+@keyframes chivas-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes chivas-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* Estilos base del documento */
