@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
+import type { ReactNode } from 'react'
 import { Space_Grotesk, Libre_Baskerville } from 'next/font/google'
 import './globals.css'
-import Navbar from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 
 const spaceGrotesk = Space_Grotesk({ 
   subsets: ['latin'],
@@ -20,16 +19,14 @@ export const metadata: Metadata = {
   description: "Reserva tu chiva rumbera para cualquier evento",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="es"
       className={`${spaceGrotesk.variable} ${libreBaskerville.variable} h-full antialiased scroll-smooth`}
     >
       <body className="flex min-h-full flex-col bg-primary font-primary text-txt-primary">
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );
