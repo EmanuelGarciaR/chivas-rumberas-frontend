@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { LoginDto } from '@/lib/types'
-import { login } from '@/lib/api/auth'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 
@@ -25,13 +24,19 @@ export default function AdminLoginPage() {
     setError(null)
 
     try {
-      const { accessToken } = await login(values)
-      // Store token in an HttpOnly cookie via a route handler
-      await fetch('/api/admin/session', {
+      const response = await fetch('/api/admin/session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: accessToken }),
+        body: JSON.stringify(values),
       })
+      if (!response.ok) {
+        const body = await response.json().catch(() => null)
+        throw new Error(
+          typeof body?.error === 'string'
+            ? body.error
+            : body?.error?.message ?? 'Credenciales incorrectas',
+        )
+      }
       router.push('/gestion-interna')
       router.refresh()
     } catch (err) {
