@@ -3,6 +3,7 @@ import { Experience } from '@/components/home/Experience'
 import { Why } from '@/components/home/Why'
 import { Chivas } from '@/components/home/Chivas'
 import { Steps } from '@/components/home/Steps'
+import { Stats } from '@/components/home/Stats'
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <Why />
       <Chivas />
       <Steps />
+      <Stats />
     </>
   )
 }
