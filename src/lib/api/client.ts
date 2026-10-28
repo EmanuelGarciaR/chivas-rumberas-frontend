@@ -39,6 +39,7 @@ export async function apiFetch<T>(
   })
 
   if (!res.ok) {
+    console.error(`API request failed: ${res.status} ${res.statusText} - ${url}`)
     let type = 'UnknownError'
     let message = `HTTP ${res.status}`
 

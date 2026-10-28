@@ -23,6 +23,7 @@ export default async function HomePage() {
     chivas = result[0]
     travels = result[1]
   } catch (error: unknown) {
+    console.error('Error loading booking options:', error)
     loadError =
       error instanceof Error
         ? error.message
