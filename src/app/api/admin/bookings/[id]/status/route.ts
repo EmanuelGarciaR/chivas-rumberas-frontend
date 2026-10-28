@@ -30,7 +30,7 @@ export async function PATCH(
   const { id } = await context.params
   try {
     const apiUrl =
-      process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000'
+      process.env.API_URL ?? 'http://localhost:3000'
     const response = await fetch(
       `${apiUrl}/bookings/${encodeURIComponent(id)}/status`,
       {
