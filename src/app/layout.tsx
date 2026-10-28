@@ -17,6 +17,9 @@ const libreBaskerville = Libre_Baskerville({
 export const metadata: Metadata = {
   title: "Chivas Rumberas La 80",
   description: "Reserva tu chiva rumbera para cualquier evento",
+  icons: {
+    icon: '/icons/logo-chiva-ia.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
