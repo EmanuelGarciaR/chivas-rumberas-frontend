@@ -43,7 +43,7 @@ export function updateBookingStatus(
   token: string,
 ): Promise<Booking> {
   return apiFetch<Booking>(
-    `bookings/${encodeURIComponent(id)}/status`,
+    `/bookings/${encodeURIComponent(id)}/status`,
     {
       method: 'PATCH',
       headers: { Authorization: `Bearer ${token}` },

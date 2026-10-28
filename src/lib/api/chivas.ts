@@ -6,7 +6,7 @@ export function getChivas(
   revalidate: number | false = 60,
 ): Promise<ChivaListItem[]> {
   const query = status ? `?status=${status}` : ''
-  return apiFetch<ChivaListItem[]>(`chivas${query}`, {
+  return apiFetch<ChivaListItem[]>(`/chivas${query}`, {
     tags: ['chivas'],
     revalidate,
   })
@@ -17,7 +17,7 @@ export function updateChivaStatus(
   status: ChivaStatus,
   token: string,
 ): Promise<Chiva> {
-  return apiFetch<Chiva>(`chivas/${encodeURIComponent(id)}/status`, {
+  return apiFetch<Chiva>(`/chivas/${encodeURIComponent(id)}/status`, {
     method: 'PATCH',
     headers: { Authorization: `Bearer ${token}` },
     body: JSON.stringify({ status }),
@@ -26,7 +26,7 @@ export function updateChivaStatus(
 }
 
 export function getChiva(id: string): Promise<Chiva> {
-  return apiFetch<Chiva>(`chivas/${id}`, {
+  return apiFetch<Chiva>(`/chivas/${id}`, {
     tags: [`chiva-${id}`],
     revalidate: 60,
   })
