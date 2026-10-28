@@ -55,7 +55,7 @@ Construida con **Next.js**, **React**, **TypeScript** y **Tailwind CSS**. El fro
 | **Interfaz** | [React](https://react.dev/) 19 |
 | **Lenguaje** | [TypeScript](https://www.typescriptlang.org/) |
 | **Estilos** | [Tailwind CSS](https://tailwindcss.com/) 4 |
-| **Iconos** | [Animate Icons](https://animateicons.com/) |
+| **Iconos** | [Animate Icons](https://animateicons.in//) |
 | **Utilidades** | [clsx](https://github.com/lukeed/clsx) |
 | **Linting** | [ESLint](https://eslint.org/) 9 con `eslint-config-next` |
 | **Backend** | API REST de Chivas Rumberas La 80 |
