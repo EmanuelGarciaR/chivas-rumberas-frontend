@@ -13,9 +13,7 @@ export async function proxyAdminRequest(
     )
   }
 
-  const backendUrl =
-    process.env.NEXT_PUBLIC_API_HOST ??
-    'http://localhost:3000'
+  const backendUrl = process.env['NEXT_PUBLIC_API_HOST']
 
   try {
     const response = await fetch(`${backendUrl}${path}`, {

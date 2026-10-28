@@ -1,6 +1,4 @@
-const NEXT_PUBLIC_API_HOST =
-  process.env.NEXT_PUBLIC_API_HOST ??
-  'http://localhost:3000'
+const API_URL_HOST = process.env['NEXT_PUBLIC_API_HOST']
 
 export class ApiError extends Error {
   constructor(
@@ -22,7 +20,7 @@ export async function apiFetch<T>(
   path: string,
   { tags, revalidate, ...init }: FetchOptions = {},
 ): Promise<T> {
-  const url = `${NEXT_PUBLIC_API_HOST}${path}`
+  const url = `${API_URL_HOST}${path}`
 
   const res = await fetch(url, {
     headers: {
