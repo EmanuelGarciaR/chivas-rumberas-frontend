@@ -1,5 +1,5 @@
-const API_URL =
-  process.env.API_URL ??
+const NEXT_PUBLIC_API_HOST =
+  process.env.NEXT_PUBLIC_API_HOST ??
   'http://localhost:3000'
 
 export class ApiError extends Error {
@@ -22,7 +22,7 @@ export async function apiFetch<T>(
   path: string,
   { tags, revalidate, ...init }: FetchOptions = {},
 ): Promise<T> {
-  const url = `${API_URL}${path}`
+  const url = `${NEXT_PUBLIC_API_HOST}${path}`
 
   const res = await fetch(url, {
     headers: {
