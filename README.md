@@ -228,3 +228,80 @@ npm run start
 Antes de desplegar, configura `NEXT_PUBLIC_API_HOST` con la URL pública del backend y verifica que el backend permita las solicitudes desde el dominio del frontend.
 
 ---
+
+## Información para la entrega
+
+### ¿Qué es el proyecto?
+
+**Chivas Rumberas La 80** es una aplicación web para consultar chivas, recorridos turísticos y crear reservas. También cuenta con un panel administrativo para consultar reservas, ver el detalle de cada reserva, actualizar sus estados y gestionar el estado operativo de las chivas.
+
+- **Frontend desplegado:** [Chivas Rumberas La 80](https://chivas-rumberas-la80-ten.vercel.app/)
+- **Backend desplegado:** [Agregar aquí el enlace público del backend]
+
+
+### Credenciales de prueba
+
+Las siguientes credenciales deben ser las mismas creadas por el `seed` del backend y solo deben utilizarse en el ambiente de entrega:
+
+```text
+admin
+Correo: [completar con el correo creado por el seed]
+Contraseña: [completar con la contraseña creada por el seed]
+
+user
+Correo: [completar con el correo creado por el seed]
+Contraseña: [completar con la contraseña creada por el seed]
+```
+
+### Decisiones técnicas
+
+#### Flujo de inicio de sesión
+
+1. La persona escribe su correo y contraseña en `/gestion-interna/login`.
+2. El formulario envía un `POST` a `/api/admin/session`.
+3. La ruta API del frontend reenvía las credenciales al endpoint `/auth/login` del backend.
+4. El backend valida las credenciales y devuelve un `accessToken`.
+5. El frontend guarda el token en una cookie llamada `admin_token`.
+6. La cookie se configura como `HttpOnly`, `SameSite=Lax`, con una duración de 4 horas.
+7. Después del login, el usuario es redirigido a `/gestion-interna`.
+8. El proxy revisa que exista la cookie antes de permitir el acceso a las rutas del panel.
+9. Las páginas administrativas leen la cookie en el servidor y envían el token al backend mediante el header `Authorization`.
+10. El backend valida el token y responde con la información solicitada.
+
+#### Panel administrativo como ruta protegida
+
+El panel se encuentra bajo la ruta `/gestion-interna`. En `src/proxy.ts` se configuró un proxy que intercepta todas las rutas con ese prefijo. La única excepción es `/gestion-interna/login`, porque debe estar disponible para iniciar sesión.
+
+Si una persona externa intenta entrar directamente a una ruta como `/gestion-interna/reservas` sin una cookie `admin_token`, el proxy la redirige al formulario de login. De esta forma, no puede acceder al contenido del panel únicamente conociendo la URL.
+
+Además, las operaciones administrativas pasan por rutas API del frontend ubicadas en `src/app/api/admin`. Estas rutas obtienen el token desde la cookie y lo reenvían al backend. Si no existe la sesión, responden `401`. El backend también debe validar el token y el rol del usuario; por eso una persona autenticada con un rol sin permisos debe recibir `403` al intentar realizar una operación administrativa.
+
+Esta separación evita exponer directamente el token al código JavaScript del navegador y centraliza las solicitudes administrativas en el servidor.
+
+#### Almacenamiento del token y riesgo
+
+El token se almacena en la cookie `admin_token`, configurada como `HttpOnly`, por lo que JavaScript del navegador no puede leerla directamente. Esto reduce el riesgo de robo del token mediante XSS.
+
+El riesgo principal es CSRF, porque las cookies pueden enviarse automáticamente en las solicitudes. La configuración `SameSite=Lax` ayuda a reducir este riesgo, aunque la protección completa también depende de la validación del backend y de la configuración adecuada de los dominios.
+
+#### Respuestas `401` y `403`
+
+- **401 Unauthorized:** la solicitud no tiene una sesión válida o no incluye un token válido. Por ejemplo, una petición a `/api/admin/bookings` sin la cookie `admin_token` responde `401`.
+- **403 Forbidden:** la persona sí está autenticada, pero su rol no tiene permisos para realizar la acción. Por ejemplo, un usuario con rol `user` que intente modificar el estado de una reserva administrativa debería recibir `403` desde el backend.
+
+#### Uso de inteligencia artificial
+
+Me ayudé de la inteligencia artificial para optimizar la creación y organización de los componentes de la aplicación. Inicialmente ya tenía la interfaz construida en Vanilla JavaScript, por lo que la IA me ayudó a transformar y estructurar esos componentes en React, TypeScript y Next.js, reutilizando la lógica y adaptándola a la arquitectura del proyecto.
+
+Las propuestas de la IA no se incorporaron automáticamente: revisé y corregí el código para ajustarlo al funcionamiento real del proyecto, especialmente en la protección del panel administrativo, el manejo de cookies, el flujo de autenticación, las rutas API y el manejo de errores.
+
+### Capturas de pantalla de la pestaña Network
+
+> Reemplazar cada marcador por la captura correspondiente. Las imágenes pueden guardarse, por ejemplo, en `docs/capturas/`.
+
+#### Login: solicitud al endpoint de sesión
+
+<!-- INSERTAR AQUÍ LA CAPTURA DE NETWORK DEL POST /api/admin/session -->
+
+![Network - inicio de sesión](public/docs/capturas/network-login.png)
+
