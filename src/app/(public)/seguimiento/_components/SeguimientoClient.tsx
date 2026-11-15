@@ -185,7 +185,18 @@ export function SeguimientoClient({ initialCode }: SeguimientoClientProps) {
                 value={`${booking.startTime} - ${booking.endTime} (${booking.durationHours} h)`}
               />
               <DetailItem label="Invitados" value={`${booking.guestCount} personas`} />
-              <DetailItem label="Total" value={formatCurrency(booking.totalPrice)} />
+              <DetailItem
+                label={
+                  booking.status === 'confirmed' || booking.status === 'completed'
+                    ? 'Total confirmado'
+                    : 'Precio'
+                }
+                value={
+                  booking.status === 'pending'
+                    ? 'En revisión por el administrador'
+                    : `${formatCurrency(booking.totalPrice)} COP`
+                }
+              />
               <DetailItem
                 label="Fecha de solicitud"
                 value={formatDateTimeBogota(booking.createdAt)}

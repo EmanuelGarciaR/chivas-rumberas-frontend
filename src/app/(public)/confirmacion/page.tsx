@@ -34,7 +34,7 @@ export default async function ConfirmacionPage({ searchParams }: ConfirmacionPag
         <h1 className="font-primary text-2xl font-bold text-txt-primary">Solicitud recibida</h1>
         <p className="mt-3 font-primary text-txt-secondary">
           Hemos recibido tu solicitud de reserva. Nuestro equipo se pondrá en contacto
-          contigo para confirmar los detalles y el precio final.
+          contigo para confirmar los detalles. Precio por confirmar con el administrador.
         </p>
 
         {id ? (

@@ -116,4 +116,5 @@ export interface AvailabilityResponse {
 
 export interface UpdateBookingStatusDto {
   status: BookingStatus
+  totalPrice?: number
 }

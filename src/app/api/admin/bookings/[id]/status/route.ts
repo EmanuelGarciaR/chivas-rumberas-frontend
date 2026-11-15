@@ -27,9 +27,34 @@ export async function PATCH(
     )
   }
 
+  let totalPrice: number | undefined
+  if ('totalPrice' in body && body.totalPrice !== undefined) {
+    if (
+      typeof body.totalPrice !== 'number' ||
+      !Number.isFinite(body.totalPrice) ||
+      body.totalPrice <= 0
+    ) {
+      return NextResponse.json(
+        {
+          error: {
+            type: 'ValidationError',
+            message: 'El precio final acordado debe ser un número mayor a 0.',
+          },
+        },
+        { status: 400 },
+      )
+    }
+    totalPrice = Math.round(body.totalPrice)
+  }
+
   const { id } = await context.params
   try {
     const apiUrl = process.env['NEXT_PUBLIC_API_HOST']
+    const payload: { status: BookingStatus; totalPrice?: number } = {
+      status: nextStatus as BookingStatus,
+      ...(totalPrice !== undefined ? { totalPrice } : {}),
+    }
+
     const response = await fetch(
       `${apiUrl}/bookings/${encodeURIComponent(id)}/status`,
       {
@@ -38,7 +63,7 @@ export async function PATCH(
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ status: nextStatus }),
+        body: JSON.stringify(payload),
         cache: 'no-store',
       },
     )

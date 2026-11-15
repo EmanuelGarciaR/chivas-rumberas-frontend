@@ -232,7 +232,14 @@ export function ReservasTableClient({
                   </td>
                   <td className="px-4 py-3 text-txt-secondary">{booking.guestCount}</td>
                   <td className="px-4 py-3 text-txt-secondary whitespace-nowrap">
-                    {formatCurrency(booking.totalPrice)}
+                    <p className="font-medium text-txt-primary">
+                      {formatCurrency(booking.totalPrice)}
+                    </p>
+                    {booking.status === 'pending' ? (
+                      <p className="text-[11px] text-txt-secondary">Precio sugerido</p>
+                    ) : booking.status === 'confirmed' || booking.status === 'completed' ? (
+                      <p className="text-[11px] text-txt-secondary">Precio confirmado</p>
+                    ) : null}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-col items-start gap-1">

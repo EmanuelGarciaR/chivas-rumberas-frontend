@@ -45,14 +45,28 @@ export default async function AdminReservaDetailPage({ params }: { params: Promi
               <Detail label="Fecha" value={formatDate(booking.eventDate)} />
               <Detail label="Horario" value={`${booking.startTime} - ${booking.endTime} (${booking.durationHours} h)`} />
               <Detail label="Personas" value={String(booking.guestCount)} />
-              <Detail label="Total" value={formatCurrency(booking.totalPrice)} />
+              <Detail
+                label={
+                  booking.status === 'pending'
+                    ? 'Precio sugerido'
+                    : booking.status === 'confirmed' || booking.status === 'completed'
+                      ? 'Precio confirmado'
+                      : 'Precio'
+                }
+                value={`${formatCurrency(booking.totalPrice)} COP`}
+              />
               {booking.notes ? <Detail label="Notas" value={booking.notes} /> : null}
             </dl>
           </div>
           <div className="space-y-6">
             <div className="rounded-xl border border-borde bg-card p-6">
               <h2 className="mb-4 text-lg font-bold">Cambiar estado</h2>
-              <BookingStatusActions bookingId={booking.id} currentStatus={booking.status} />
+              <BookingStatusActions
+                key={`${booking.id}-${booking.status}-${booking.totalPrice}`}
+                bookingId={booking.id}
+                currentStatus={booking.status}
+                currentTotalPrice={booking.totalPrice}
+              />
             </div>
             {booking.status === 'confirmed' ? (
               <CalendarSyncCard
