@@ -6,6 +6,7 @@ import { getBooking } from '@/lib/api/bookings'
 import { formatDate, formatCurrency } from '@/lib/utils'
 import { Badge } from '@/components/ui/Badge'
 import { BookingStatusActions } from './_components/BookingStatusActions'
+import { CalendarSyncCard } from './_components/CalendarSyncCard'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Detalle reserva | Admin' }
@@ -35,20 +36,31 @@ export default async function AdminReservaDetailPage({ params }: { params: Promi
           <div className="rounded-xl border border-borde bg-card p-6">
             <h1 className="mb-4 text-lg font-bold">Datos de la reserva</h1>
             <dl className="space-y-3 text-sm">
+              <Detail label="Código" value={booking.id} />
               <Detail label="Cliente" value={booking.customerName} />
               <Detail label="Chiva" value={`${booking.chivaName} (${booking.chivaId})`} />
+              <Detail label="Recorrido" value={booking.travelName} />
               <Detail label="Teléfono" value={booking.customerPhone} />
               <Detail label="Correo" value={booking.customerEmail} />
               <Detail label="Fecha" value={formatDate(booking.eventDate)} />
-              <Detail label="Horario" value={`${booking.startTime} - ${booking.endTime}`} />
+              <Detail label="Horario" value={`${booking.startTime} - ${booking.endTime} (${booking.durationHours} h)`} />
               <Detail label="Personas" value={String(booking.guestCount)} />
               <Detail label="Total" value={formatCurrency(booking.totalPrice)} />
               {booking.notes ? <Detail label="Notas" value={booking.notes} /> : null}
             </dl>
           </div>
-          <div className="rounded-xl border border-borde bg-card p-6">
-            <h2 className="mb-4 text-lg font-bold">Cambiar estado</h2>
-            <BookingStatusActions bookingId={booking.id} currentStatus={booking.status} />
+          <div className="space-y-6">
+            <div className="rounded-xl border border-borde bg-card p-6">
+              <h2 className="mb-4 text-lg font-bold">Cambiar estado</h2>
+              <BookingStatusActions bookingId={booking.id} currentStatus={booking.status} />
+            </div>
+            {booking.status === 'confirmed' ? (
+              <CalendarSyncCard
+                key={booking.calendarSyncStatus ?? 'pending'}
+                bookingId={booking.id}
+                initialSyncStatus={booking.calendarSyncStatus}
+              />
+            ) : null}
           </div>
         </div>
       </div>

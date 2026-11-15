@@ -6,10 +6,11 @@ import { ArrowUpRightIcon, MenuIcon } from '@/components/icons'
 import { ThemeToggle } from './ThemeToggle'
 
 const links = [
-  { href: '#la-experiencia', label: 'La experiencia' },
-  { href: '#nosotros', label: 'Nosotros' },
-  { href: '#nuestras-chivas', label: 'Nuestras chivas' },
-  { href: '#como-funciona', label: 'Cómo funciona' },
+  { href: '/#la-experiencia', label: 'La experiencia' },
+  { href: '/#nosotros', label: 'Nosotros' },
+  { href: '/#nuestras-chivas', label: 'Nuestras chivas' },
+  { href: '/#como-funciona', label: 'Cómo funciona' },
+  { href: '/seguimiento', label: 'Seguir reserva' },
 ]
 
 export function MobileMenu() {
@@ -83,7 +84,7 @@ export function MobileMenu() {
           ))}
           <li>
             <Link
-              href="#reserva"
+              href="/#reserva"
               onClick={closeMenu}
               className="inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-amarillo px-4 py-3 font-secondary text-base text-negro transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amarillo focus-visible:ring-offset-2"
             >

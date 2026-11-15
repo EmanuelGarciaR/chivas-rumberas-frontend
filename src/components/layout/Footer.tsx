@@ -45,12 +45,69 @@ export function Footer() {
         </address>
       </section>
 
+      <nav
+        aria-label="Navegación del sitio"
+        className="mb-10 border-t border-[rgba(255,255,255,0.05)] pt-8"
+      >
+        <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm">
+          <li>
+            <Link
+              href="/#la-experiencia"
+              className="font-secondary text-[var(--color-crema-claro)] no-underline transition-colors duration-300 hover:text-amarillo"
+            >
+              La experiencia
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/#nosotros"
+              className="font-secondary text-[var(--color-crema-claro)] no-underline transition-colors duration-300 hover:text-amarillo"
+            >
+              Nosotros
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/#nuestras-chivas"
+              className="font-secondary text-[var(--color-crema-claro)] no-underline transition-colors duration-300 hover:text-amarillo"
+            >
+              Nuestras chivas
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/#como-funciona"
+              className="font-secondary text-[var(--color-crema-claro)] no-underline transition-colors duration-300 hover:text-amarillo"
+            >
+              Cómo funciona
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/seguimiento"
+              className="font-secondary text-[var(--color-crema-claro)] no-underline transition-colors duration-300 hover:text-amarillo"
+            >
+              Seguir reserva
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/#reserva"
+              className="font-secondary inline-flex items-center gap-1.5 text-amarillo no-underline transition-opacity duration-300 hover:opacity-80"
+            >
+              Reservar ahora
+              <ArrowUpRightIcon size={15} aria-hidden="true" />
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
       <section
         className="flex flex-col items-center justify-between gap-6 border-t border-[rgba(255,255,255,0.05)] pt-10 text-xs tracking-[1px] text-[var(--color-gris-claro)] lg:flex-row lg:gap-4"
         aria-label="Legal y redes sociales"
       >
         <small className="opacity-60">
-          &copy; 2026 CHIVAS RUMBERAS LA  80- MEDELLÍN, CO
+          &copy; 2026 CHIVAS RUMBERAS LA  80 <br /> MEDELLÍN, CO
         </small>
 
         <nav aria-label="Redes sociales">
@@ -90,6 +147,17 @@ export function Footer() {
               >
                 WHATSAPP
               </a>
+            </li>
+            <li className="text-[rgba(255,255,255,0.2)]" aria-hidden="true">
+              /
+            </li>
+            <li>
+              <Link
+                href="/seguimiento"
+                className="text-[var(--color-gris-claro)] no-underline transition-colors duration-300 hover:text-amarillo"
+              >
+                SEGUIR RESERVA
+              </Link>
             </li>
           </ul>
         </nav>
