@@ -50,9 +50,9 @@ const CHIVA_PALETTE: Omit<ChivaColorStyle, 'initial'>[] = [
     stripeColor: 'var(--color-crema-calido)',
   },
   {
-    swatchClass: 'bg-[var(--bg-dark-panel)] text-amarillo border border-amarillo',
-    cellClass: 'bg-[var(--bg-dark-panel)] text-amarillo border-amarillo',
-    stripeColor: 'var(--bg-dark-panel)',
+    swatchClass: 'bg-primary text-txt-primary border-2 border-amarillo',
+    cellClass: 'bg-amarillo/15 border-2 border-borde text-txt-primary',
+    stripeColor: 'var(--color-gris-claro)',
   },
   {
     swatchClass: 'bg-card text-rojo border-2 border-rojo',
