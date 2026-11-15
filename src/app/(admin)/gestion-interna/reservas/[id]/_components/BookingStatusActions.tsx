@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import type { BookingStatus, UpdateBookingStatusDto } from '@/lib/types'
+import type { Booking, BookingStatus, UpdateBookingStatusDto } from '@/lib/types'
 import { formatCurrency } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -29,19 +29,26 @@ const transitions: Record<
   cancelled: [],
 }
 
+function parseCopAmount(raw: string): number {
+  const digitsOnly = raw.replace(/[^\d]/g, '')
+  if (!digitsOnly) return NaN
+  return Number(digitsOnly)
+}
+
 export function BookingStatusActions({
   bookingId,
   currentStatus,
   currentTotalPrice,
 }: Props) {
   const router = useRouter()
+  const [savedPrice, setSavedPrice] = useState(currentTotalPrice)
   const [priceInput, setPriceInput] = useState(String(currentTotalPrice))
   const [loading, setLoading] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [successMsg, setSuccessMsg] = useState<string | null>(null)
 
   function parseValidPrice(): number | null {
-    const parsed = Number(priceInput)
+    const parsed = parseCopAmount(priceInput)
     if (!Number.isFinite(parsed) || parsed <= 0) {
       setError('El precio final acordado debe ser un número mayor a 0.')
       return null
@@ -83,10 +90,15 @@ export function BookingStatusActions({
         throw new Error(message ?? 'No fue posible actualizar la reserva.')
       }
 
+      const updated = body as Booking | null
+      if (updated && typeof updated.totalPrice === 'number') {
+        setSavedPrice(updated.totalPrice)
+        setPriceInput(String(updated.totalPrice))
+      }
+
       if (nextStatus === 'pending' && payload.totalPrice !== undefined) {
-        setSuccessMsg(
-          `Precio sugerido actualizado a ${formatCurrency(payload.totalPrice)} COP.`,
-        )
+        const finalValue = updated?.totalPrice ?? payload.totalPrice
+        setSuccessMsg(`Precio actualizado a ${formatCurrency(finalValue)} COP.`)
       }
       router.refresh()
     } catch (reason: unknown) {
@@ -104,30 +116,43 @@ export function BookingStatusActions({
     <div className="flex flex-col gap-3">
       {currentStatus === 'pending' ? (
         <div className="mb-1 space-y-2 rounded-lg border border-borde bg-primary/50 p-3.5">
-          <Input
-            label="Precio final acordado (COP)"
-            type="number"
-            min={1}
-            step={1000}
-            value={priceInput}
-            onChange={(e) => {
-              setPriceInput(e.target.value)
-              setError(null)
-              setSuccessMsg(null)
-            }}
-            hint={`Precio sugerido actual: ${formatCurrency(currentTotalPrice)} COP`}
-          />
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            isLoading={loading === 'save-price'}
-            disabled={loading !== null}
-            onClick={() => void update('pending', true, 'save-price')}
-            className="w-full border border-borde whitespace-nowrap"
-          >
-            Guardar precio sin confirmar
-          </Button>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
+            <div className="flex-1">
+              <Input
+                label="Precio final acordado (COP)"
+                type="text"
+                inputMode="numeric"
+                value={priceInput}
+                disabled={loading !== null}
+                onChange={(e) => {
+                  setPriceInput(e.target.value)
+                  setError(null)
+                  setSuccessMsg(null)
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    void update('pending', true, 'save-price')
+                  }
+                }}
+                placeholder="Ej. 950000"
+              />
+            </div>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              isLoading={loading === 'save-price'}
+              disabled={loading !== null}
+              onClick={() => void update('pending', true, 'save-price')}
+              className="h-10 border border-borde whitespace-nowrap"
+            >
+              Guardar precio
+            </Button>
+          </div>
+          <p className="text-xs text-txt-secondary">
+            Precio sugerido actual: {formatCurrency(savedPrice)} COP
+          </p>
         </div>
       ) : null}
 
@@ -156,7 +181,7 @@ export function BookingStatusActions({
       {successMsg ? (
         <p
           role="status"
-          className="rounded-lg bg-secondary px-3 py-2 text-sm text-txt-primary"
+          className="rounded-lg border border-amarillo bg-secondary px-3 py-2 text-sm font-medium text-txt-primary"
         >
           {successMsg}
         </p>
